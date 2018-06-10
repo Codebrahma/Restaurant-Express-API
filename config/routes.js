@@ -8,7 +8,11 @@ module.exports = function (app, passport) {
   // Home Routes
   app.use('/', require('../app/Home')(passport));
 
+  // Food Routes
   app.use('/food', require('../app/Food')(passport));
+
+  // Restaurant Routes
+  app.use('/restaurant', require('../app/Restaurant')(passport))
 
   /**
    * Error handling
@@ -24,6 +28,7 @@ module.exports = function (app, passport) {
     // error page
     res.status(500).json({
       success: false,
+      message: err.message,
     });
   });
 

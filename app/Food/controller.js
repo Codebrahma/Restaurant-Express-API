@@ -16,7 +16,6 @@ const createFood = function (req, res, next) {
   // TODO: This should trigger restaurant's type
   food
     .save()
-    .exec()
     .then(food => res.json(food))
     .catch(err => next(err));
 };
