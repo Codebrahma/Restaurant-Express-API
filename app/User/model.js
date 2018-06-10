@@ -4,7 +4,6 @@
  */
 
 var mongoose = require('mongoose');
-var userPlugin = require('mongoose-user');
 var Schema = mongoose.Schema;
 
 /**
@@ -12,10 +11,14 @@ var Schema = mongoose.Schema;
  */
 
 var UserSchema = new Schema({
-  name: { type: String, default: '' },
-  email: { type: String, default: '' },
-  hashed_password: { type: String, default: '' },
-  salt: { type: String, default: '' }
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);

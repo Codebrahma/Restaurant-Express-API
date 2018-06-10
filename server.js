@@ -17,6 +17,14 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const config = require('./config');
 
+const passportJWT = require('passport-jwt');
+const ExtractJWT = passportJWT.ExtractJwt;
+const JWTStrategy   = passportJWT.Strategy;
+
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('./app/User/model');
+var crypto = require('./app/utils/crypto');
+
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -35,8 +43,11 @@ module.exports = {
 };
 
 // Bootstrap routes
-require('./config/passport')(passport);
-require('./config/express')(app, passport);
+require('./config/express')(app);
+
+// Adding passport initialization
+require('./config/passport/local');
+
 require('./config/routes')(app, passport);
 
 connection

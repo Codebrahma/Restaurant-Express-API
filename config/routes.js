@@ -8,11 +8,15 @@ module.exports = function (app, passport) {
   // Home Routes
   app.use('/', require('../app/Home')(passport));
 
+  // User Routes
+  app.use('/auth', require('../app/User')(passport));
+
   // Food Routes
   app.use('/food', require('../app/Food')(passport));
 
   // Restaurant Routes
-  app.use('/restaurant', require('../app/Restaurant')(passport))
+  app.use('/restaurant', require('../app/Restaurant')(passport));
+  
 
   /**
    * Error handling
