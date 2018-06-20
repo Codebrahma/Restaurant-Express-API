@@ -3,16 +3,16 @@ var FoodController = require('./controller');
 
 module.exports = function (passport) {
   /* GET all Food or get food by id*/
-  router.get('/', FoodController.getAllFood);
+  router.get('/', passport.authenticate('jwt', { session: false }), FoodController.getAllFood);
 
   /* POST New food */
-  router.post('/', FoodController.createFood);
+  router.post('/', passport.authenticate('jwt', { session: false }), FoodController.createFood);
 
   /* Deletes a Food By ID */
-  router.delete('/', FoodController.deleteFoodById);
+  router.delete('/', passport.authenticate('jwt', { session: false }), FoodController.deleteFoodById);
   
   /* Updates a Food */
-  router.patch('/:foodId', FoodController.updateFoodById);
+  router.patch('/:foodId', passport.authenticate('jwt', { session: false }), FoodController.updateFoodById);
 
   return router;
 };
