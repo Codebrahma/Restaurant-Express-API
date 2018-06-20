@@ -34,12 +34,14 @@ const getAllRestaurants = function (req, res, next) {
   if (id) {
     Restaurant
       .findById(id)
+      .populate('foods.food')
       .exec()
       .then(restaurants => res.json(restaurants))
       .catch(e => next(e));
   } else {
     Restaurant
       .find()
+      .populate('foods.food')
       .exec()
       .then(restaurants => res.json(restaurants))
       .catch(e => next(e));
