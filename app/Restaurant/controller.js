@@ -20,7 +20,8 @@ const getRestaurantsByType = function (req, res, next) {
         return (findIndex(foods, ({ food }) => food.type === type) !== -1);
       });
       // returns all restaurants id, name and details
-      res.json(map(filteredRestaurants, restaurant => pick(restaurant, ['_id', 'name', 'details'])));
+      console.log('filtered restaurants ', filteredRestaurants)
+      res.json(map(filteredRestaurants, restaurant => pick(restaurant, ['_id', 'name', 'details', 'foods'])));
     })
     .catch(e => next(e));
 };

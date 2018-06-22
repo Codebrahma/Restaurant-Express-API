@@ -14,5 +14,8 @@ module.exports = function (passport) {
   /* Updates a Food */
   router.patch('/:foodId', passport.authenticate('jwt', { session: false }), FoodController.updateFoodById);
 
+  /* GET all Food or get food by id*/
+  router.get('/types', passport.authenticate('jwt', { session: false }), FoodController.getFoodType);
+
   return router;
 };
