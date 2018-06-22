@@ -74,9 +74,19 @@ const updateFoodById = function (req, res, next) {
 
 };
 
+const getFoodType = function (req, res, next) {
+  Food
+    .find()
+    .distinct('type')
+    .exec()
+    .then(types => res.json(types))
+    .catch(err => next(err));
+};
+
 module.exports = {
   createFood,
   getAllFood,
   deleteFoodById,
   updateFoodById,
+  getFoodType,
 };
