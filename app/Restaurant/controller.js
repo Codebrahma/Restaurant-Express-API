@@ -12,23 +12,8 @@ const getRestaurantsByType = function (req, res, next) {
   const splitTypes = types.split(',');
 
   Restaurant
-    .find()
-    .populate({
-      path: 'foods.food',
-      match: {
-        'foods.food.type': {
-          $eq: ''
-        }
-      }
-    })
-    // .find({
-    //   'foods': {
-        
-    //   }
-    // })
+    .find({})
     .then(restaurants => {
-
-      console.log(restaurants);
       // returns all restaurants id, name and details
       res.json(map(restaurants, restaurant => pick(restaurant, ['_id', 'name', 'details', 'foods'])));
     })
