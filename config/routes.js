@@ -16,6 +16,9 @@ module.exports = function (app, passport) {
 
   // Restaurant Routes
   app.use('/restaurant', require('../app/Restaurant')(passport));
+
+  // Order Routes
+  app.use('/orders', require('../app/Orders')(passport));
   
 
   /**
