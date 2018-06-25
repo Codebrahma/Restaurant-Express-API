@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const register = function (req, res, next) {
   const {
     email,
-    password
+    password,
+    admin,
   } = req.body;
 
   const hashedPassword = crypto.encrypt(password);
@@ -13,8 +14,8 @@ const register = function (req, res, next) {
   const user = new User({
     email,
     password: hashedPassword,
+    role: admin ? 'admin' : 'user',
   });
-
   
   user
     .save()

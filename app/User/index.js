@@ -7,7 +7,7 @@ module.exports = function (passport) {
 
   Router.get('/users', UserController.getUsers);
 
-  Router.delete('/:userId', UserController.deleteUserById);
+  Router.delete('/:userId', passport.authenticate('jwt', { session: false }), UserController.deleteUserById);
 
   Router.post('/login', UserController.login(passport));
 

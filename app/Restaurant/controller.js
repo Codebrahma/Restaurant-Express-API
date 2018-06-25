@@ -7,21 +7,30 @@ const map = require('lodash/map');
 // Get Restaurants by type
 const getRestaurantsByType = function (req, res, next) {
   const {
-    type,
-  } = req.params;
+    types,
+  } = req.query;
+  const splitTypes = types.split(',');
 
   Restaurant
     .find()
-    .populate('foods.food')
-    .exec()
+    .populate({
+      path: 'foods.food',
+      match: {
+        'foods.food.type': {
+          $eq: ''
+        }
+      }
+    })
+    // .find({
+    //   'foods': {
+        
+    //   }
+    // })
     .then(restaurants => {
-      // Filters restaurant which are of required type
-      const filteredRestaurants = filter(restaurants, ({ foods }) => {
-        return (findIndex(foods, ({ food }) => food.type === type) !== -1);
-      });
+
+      console.log(restaurants);
       // returns all restaurants id, name and details
-      console.log('filtered restaurants ', filteredRestaurants)
-      res.json(map(filteredRestaurants, restaurant => pick(restaurant, ['_id', 'name', 'details', 'foods'])));
+      res.json(map(restaurants, restaurant => pick(restaurant, ['_id', 'name', 'details', 'foods'])));
     })
     .catch(e => next(e));
 };
