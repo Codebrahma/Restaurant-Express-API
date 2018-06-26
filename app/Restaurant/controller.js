@@ -7,12 +7,13 @@ const map = require('lodash/map');
 // Get Restaurants by type
 const getRestaurantsByType = function (req, res, next) {
   const {
-    types,
+    type,
   } = req.query;
-  const splitTypes = types.split(',');
-
+  
   Restaurant
-    .find({})
+    .find()
+    .populate('foods.food')
+    .exec()
     .then(restaurants => {
       // returns all restaurants id, name and details
       res.json(map(restaurants, restaurant => pick(restaurant, ['_id', 'name', 'details', 'foods'])));
