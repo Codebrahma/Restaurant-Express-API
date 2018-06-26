@@ -6,7 +6,7 @@ module.exports = function (passport) {
   /* GET all Food or get food by id*/
   router.get('/',
     passport.authenticate('jwt', { session: false }),
-    Authorization.roleAuthorization(['admin']),
+    Authorization.roleAuthorization(['admin', 'user']),
     FoodController.getAllFood
   );
 
@@ -32,7 +32,11 @@ module.exports = function (passport) {
   );
 
   /* GET all Food or get food by id*/
-  router.get('/types', passport.authenticate('jwt', { session: false }), FoodController.getFoodType);
+  router.get('/types', 
+    passport.authenticate('jwt', { session: false }),
+    Authorization.roleAuthorization(['user']),
+    FoodController.getFoodType
+  );
 
   return router;
 };
