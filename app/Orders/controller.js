@@ -2,10 +2,11 @@ const Order = require('./model');
 
 const createOrder = function (req, res, next) {
   const {
-    userId,
     items,
     totalCost
   } = req.body;
+  
+  const userId = req.user._id;
 
   const order = new Order({
     userId,
